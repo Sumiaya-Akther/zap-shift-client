@@ -9,6 +9,8 @@ import Register from "../pages/authentication/register/Register";
 import Coverage from "../pages/coverage/Coverage";
 import PrivateRoute from "./PrivateRoute";
 import SendParcel from "../pages/sendParcel/SendParcel";
+import DashboardLayout from "../latouts/DashboardLayout";
+import MyParcels from "../pages/dashboard/MyParcels";
 
  export const router = createBrowserRouter([
   {
@@ -22,14 +24,16 @@ import SendParcel from "../pages/sendParcel/SendParcel";
       {
         path: '/coverage',
         Component: Coverage,
-        loader: () => fetch('./serviceCenter.json')
+        loader: () => fetch('./serviceCenter.json'),
+        hydrateFallbackElement: <h1>loading.....</h1>
       },
       {
         path: '/sendParcel',
         element: <PrivateRoute>
           <SendParcel></SendParcel>
         </PrivateRoute>,
-        loader: () => fetch('./serviceCenter.json')
+        loader: () => fetch('./serviceCenter.json'),
+        hydrateFallbackElement: <h1>loading......</h1>
       }
     ]
   },
@@ -44,6 +48,18 @@ import SendParcel from "../pages/sendParcel/SendParcel";
       {
         path: 'register',
         Component: Register
+      }
+    ]
+  },
+    {
+    path: '/dashboard',
+    element: <PrivateRoute>
+      <DashboardLayout></DashboardLayout>
+    </PrivateRoute>,
+    children: [
+      {
+        path: 'myParcels',
+        Component: MyParcels
       }
     ]
   }
