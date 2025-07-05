@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router';
+import {  Outlet } from 'react-router';
 import authImg from '../assets/authImage.png'
 import ProFastLogo from '../shared/proFasrLogo/ProFastLogo';
 
@@ -8,7 +8,7 @@ const AuthLayout = () => {
     return (
         <div className="p-12 bg-base-200">
             <div>
-                <Link to="/"><ProFastLogo></ProFastLogo></Link>
+              <ProFastLogo></ProFastLogo>
             </div>
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className='flex-1'>

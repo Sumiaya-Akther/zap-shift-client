@@ -1,14 +1,24 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../socialLogin/SocialLogin';
+import useAuth from '../../../hooks/useAuth';
 
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {signIn} = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from || '/';
 
     const onSubmit = data => {
-        console.log(data);
+        signIn(data.email, data.password)
+        .than(result => {
+            console.log(result.user);
+            navigate(from);
+        })
+        .catch(error => console.log(error))
     }
 
     return (
@@ -40,7 +50,7 @@ const Login = () => {
                             errors.password?.type === 'minLength' && <p className='text-red-500'>Password Must be 6 characters or longer</p>
                         }
 
-                        <div><a className="link link-hover">Forgot password?</a></div>
+                        <div><Link className="link link-hover">Forgot password?</Link></div>
 
                         <button className="btn btn-primary text-black mt-4">Login</button>
                     </fieldset>
