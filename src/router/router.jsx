@@ -7,6 +7,8 @@ import AuthLayout from "../latouts/AuthLayout";
 import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
 import Coverage from "../pages/coverage/Coverage";
+import PrivateRoute from "./PrivateRoute";
+import SendParcel from "../pages/sendParcel/SendParcel";
 
  export const router = createBrowserRouter([
   {
@@ -20,6 +22,13 @@ import Coverage from "../pages/coverage/Coverage";
       {
         path: '/coverage',
         Component: Coverage,
+        loader: () => fetch('./serviceCenter.json')
+      },
+      {
+        path: '/sendParcel',
+        element: <PrivateRoute>
+          <SendParcel></SendParcel>
+        </PrivateRoute>,
         loader: () => fetch('./serviceCenter.json')
       }
     ]
