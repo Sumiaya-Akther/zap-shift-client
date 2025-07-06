@@ -63,7 +63,7 @@ import Payment from "../pages/dashboard/payment/Payment";
         Component: MyParcels
       },
       {
-        path: 'payment/:id',
+        path: 'payment/:parcelId',
         Component: Payment
       }
     ]
