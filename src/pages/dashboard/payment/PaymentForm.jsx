@@ -119,12 +119,6 @@ const PaymentForm = () => {
             }
         }
 
-
-
-
-
-
-
     };
 
 
