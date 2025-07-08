@@ -14,14 +14,15 @@ import MyParcels from "../pages/dashboard/MyParcels";
 import Payment from "../pages/dashboard/payment/Payment";
 import PaymentHistory from "../pages/dashboard/paymentHistory/PaymentHistory";
 import TrackParcel from "../pages/dashboard/trackParcel/TrackParcel";
+import BeARaider from "../pages/dashboard/beARaider/BeARaider";
 
- export const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayOut,
     children: [
       {
-        index:true,
+        index: true,
         Component: Home
       },
       {
@@ -29,6 +30,12 @@ import TrackParcel from "../pages/dashboard/trackParcel/TrackParcel";
         Component: Coverage,
         loader: () => fetch('./serviceCenter.json'),
         hydrateFallbackElement: <h1>loading.....</h1>
+      },
+      {
+        path: 'beARider',
+        element: <PrivateRoute><BeARaider></BeARaider></PrivateRoute>,
+        loader: () => fetch('./serviceCenter.json'),
+        hydrateFallbackElement: <h1>loading......</h1>
       },
       {
         path: '/sendParcel',
@@ -41,11 +48,11 @@ import TrackParcel from "../pages/dashboard/trackParcel/TrackParcel";
     ]
   },
   {
-    path:'/',
+    path: '/',
     Component: AuthLayout,
     children: [
       {
-        path:'login',
+        path: 'login',
         Component: Login
       },
       {
@@ -54,7 +61,7 @@ import TrackParcel from "../pages/dashboard/trackParcel/TrackParcel";
       }
     ]
   },
-    {
+  {
     path: '/dashboard',
     element: <PrivateRoute>
       <DashboardLayout></DashboardLayout>
@@ -70,10 +77,10 @@ import TrackParcel from "../pages/dashboard/trackParcel/TrackParcel";
       },
       {
         path: 'paymentHistory',
-        Component:PaymentHistory
+        Component: PaymentHistory
       },
       {
-        path:'track',
+        path: 'track',
         Component: TrackParcel
       }
     ]
