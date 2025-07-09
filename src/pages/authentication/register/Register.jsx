@@ -42,11 +42,12 @@ const Register = () => {
                 updateUserProfile(userProfile)
                     .then(() => {
                         console.log('profile name pic updated')
+                        navigate(from)
                     })
                     .catch(error => {
                         console.log(error)
                     })
-                navigate(from)
+
             })
             .catch(error => {
                 console.error(error);
