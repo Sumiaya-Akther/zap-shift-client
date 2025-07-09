@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import useAuth from './useAuth';
+import { useNavigate } from 'react-router';
 
 const axiosSecure = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -9,6 +10,7 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
 
     const { user, logOut } = useAuth();
+    const navigate = useNavigate();
     const token = user?.accessToken
     //intercept requests
     axiosSecure.interceptors.request.use(config => {
@@ -20,14 +22,16 @@ const useAxiosSecure = () => {
     axiosSecure.interceptors.response.use(response => {
         return response;
     }, error => {
-        if (error.status === 401 || error.status === 403) {
+        const status = error.status;
+        if (status === 403) {
+            navigate('/forbidden');
+        }
+        else if (status === 401) {
             logOut()
                 .then(() => {
-                    console.log('sign out for 401 status code')
+                    navigate('/login')
                 })
-                .catch(err => {
-                    console.log(err)
-                })
+                .catch(() => { })
         }
 
         return Promise.reject(error)
